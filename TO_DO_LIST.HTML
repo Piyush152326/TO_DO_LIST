@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Todo List</title>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box
+}
+body{
+    font-family:'Segoe UI',sans-serif;
+    background: linear-gradient(135deg, #667eea 0%,#764ba2 100%);
+    min-height: 100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px
+}
+.container{
+    background:white;
+    border-radius: 15px;
+    padding:30px;
+    max-width: 500px;
+    width:100%;
+    box-shadow:0 10px 40px rgba(0,0,0,0.2)
+}
+h1{
+    color:#333;
+    margin-bottom: 20px;
+    text-align:center
+}
+.input-group{
+    display:flex;
+    gap: 10px;
+    margin-bottom:20px
+}
+input{
+    flex:1;
+    padding:10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size:1rem
+}
+input:focus{
+    outline: none;
+    border-color:#667eea
+}
+button{
+    padding: 10px 20px;
+    background:#667eea;
+    color:white;
+    border: none;
+    border-radius: 8px;
+    cursor:pointer;
+    font-weight: 600
+}
+button:hover{
+    background: #764ba2
+}
+#todos{
+    list-style:none
+}
+.todo-item{
+    display: flex;
+    align-items:center;
+    padding:12px;
+    background:#f5f5f5;
+    margin-bottom:10px;
+    border-radius: 8px;
+    gap: 10px
+}
+.todo-item.done{
+    opacity:0.6
+}
+.todo-item.done span{
+    text-decoration: line-through
+}
+.delete{
+    background:#ef4444;
+    padding:5px 10px;
+    font-size: 0.8rem
+}
+.delete:hover{
+    background:#dc2626
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Todo List</h1>
+<div class="input-group">
+<input type="text" id="input" placeholder="Add a task ... ">
+<button id="add">Add</button>
+</div>
+<ul id="todos"></ul>
+</div>
+<script>
+const input = document.getElementById('input');
+const todos = document.getElementById('todos');
+document.getElementById('add').onclick = () => {
+
+    if(!input.value) return;
+
+    const li = document.createElement('li');
+    li.className = 'todo-item';
+
+    li.innerHTML = `
+        <input type="checkbox">
+        <span>${input.value}</span>
+        <button class="delete">X</button>
+    `;
+
+    li.querySelector('input').onchange = () =>
+        li.classList.toggle('done');
+
+    li.querySelector('.delete').onclick = () =>
+        li.remove();
+
+    todos.appendChild(li);
+
+    input.value = '';
+};
+</script>
+</body>
+</html>
